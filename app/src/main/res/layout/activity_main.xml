@@ -13,6 +13,7 @@
         android:layout_marginStart="3dp"
         android:layout_marginLeft="3dp"
         android:layout_marginBottom="28dp"
+        android:background="@drawable/rounded_plain_text"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/pass"
@@ -27,6 +28,8 @@
         android:layout_marginTop="73dp"
         android:onClick="login"
         android:text="signin"
+        android:background="@drawable/rounded_button"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="@+id/pass"
         app:layout_constraintTop_toBottomOf="@+id/pass" />
 
@@ -35,7 +38,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="196dp"
+        android:background="@drawable/rounded_plain_text"
         android:ems="10"
+        android:hint="password"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,6 +52,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="93dp"
         android:onClick="signup"
+        android:background="@drawable/rounded_button"
+        android:textColor="@color/white"
         android:text="signup"
         app:layout_constraintStart_toStartOf="@+id/login"
         app:layout_constraintTop_toBottomOf="@+id/login" />

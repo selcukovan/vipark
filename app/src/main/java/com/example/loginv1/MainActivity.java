@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
 
@@ -112,12 +114,10 @@ public class MainActivity extends AppCompatActivity {
 
                         }
 
-                        // ...
                     }
                 });
 
     }
-
 
     public void login(View view){
 
@@ -132,22 +132,17 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent = new Intent(MainActivity.this,MapsActivity.class);
                             startActivity(intent);
 
-
-
                         } else {
                             // If sign in fails, display a message to the user.
                             //Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(MainActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-
                         }
 
-                        // ...
                     }
                 });
 
     }
-
 
     public void signup(View view){
 
@@ -155,7 +150,5 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
-
-
 
 }

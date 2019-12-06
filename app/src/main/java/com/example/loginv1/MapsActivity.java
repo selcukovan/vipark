@@ -66,5 +66,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         }
                     }
                 });
+        mMap.setPadding(600,20,20,1200 );
+
+
+
     }
+
+
 }
