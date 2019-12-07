@@ -75,26 +75,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(document.getData().get("x")
                                         .toString()), Double.parseDouble(document.getData().get("y")
-                                        .toString()))).title("Marker in" + document.getData().get("name") ));
+                                        .toString()))).title(document.getData().get("name").toString()));
                                 mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                                     @Override
                                     public void onInfoWindowClick(Marker marker) {
 
-                                        Intent intent = new Intent(MapsActivity.this,signupPage.class);
+                                        Intent intent = new Intent(MapsActivity.this,ReservationActivity.class);
                                         intent.putExtra("markername",marker.getTitle());
                                         startActivity(intent);
                                     }
                                 });
-
                             }
-
                         } else {
                             Log.w("test", "Error getting documents.", task.getException());
                         }
                     }
                 });
-        mMap.setPadding(500,20,20,1000 );
-
     }
 
 }
