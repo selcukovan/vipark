@@ -144,11 +144,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void signup(View view){
 
+    public void sign_up_for_user(View view){
         Intent intent = new Intent(MainActivity.this,signupPage.class);
         startActivity(intent);
-
     }
 
 }

@@ -4,14 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".signupPage">
 
     <EditText
         android:id="@+id/signupEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="350dp"
+        android:layout_height="40dp"
         android:layout_marginTop="110dp"
+        android:background="@drawable/rounded_plain_text"
         android:ems="10"
+        android:hint=" Email"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,10 +22,12 @@
 
     <EditText
         android:id="@+id/signupPass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="350dp"
+        android:layout_height="40dp"
         android:layout_marginTop="19dp"
+        android:background="@drawable/rounded_plain_text"
         android:ems="10"
+        android:hint=" Password"
         android:inputType="textPassword"
         app:layout_constraintStart_toStartOf="@+id/signupEmail"
         app:layout_constraintTop_toBottomOf="@+id/signupEmail" />
@@ -31,23 +36,17 @@
         android:id="@+id/signUp2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="53dp"
-        android:layout_marginLeft="53dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginLeft="84dp"
         android:layout_marginTop="50dp"
+        android:layout_marginEnd="84dp"
+        android:layout_marginRight="84dp"
+        android:background="@drawable/effect_button"
         android:onClick="signUp2"
-        android:text="Button"
-        app:layout_constraintStart_toStartOf="@+id/signupPass"
+        android:text="sıgnup"
+        android:textColor="@color/orange"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signupPass" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="@+id/signUp2"
-        app:layout_constraintTop_toBottomOf="@+id/signUp2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -30,12 +30,7 @@ public class signupPage extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         em = (EditText) findViewById(R.id.signupEmail);
         ps = (EditText) findViewById(R.id.signupPass);
-        t = (TextView) findViewById(R.id.textView);
 
-        Intent i = getIntent();
-        String park_name = i.getStringExtra("markername");
-
-        t.setText(park_name);
 
     }
 
