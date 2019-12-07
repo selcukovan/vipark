@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,6 +21,7 @@ public class signupPage extends AppCompatActivity {
 
     EditText em;
     EditText ps;
+    TextView t;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,13 @@ public class signupPage extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         em = (EditText) findViewById(R.id.signupEmail);
         ps = (EditText) findViewById(R.id.signupPass);
+        t = (TextView) findViewById(R.id.textView);
+
+        Intent i = getIntent();
+        String park_name = i.getStringExtra("markername");
+
+        t.setText(park_name);
+
     }
 
     public void signUp2(View view){

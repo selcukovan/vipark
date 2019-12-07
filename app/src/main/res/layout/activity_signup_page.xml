@@ -39,4 +39,15 @@
         app:layout_constraintStart_toStartOf="@+id/signupPass"
         app:layout_constraintTop_toBottomOf="@+id/signupPass" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/signUp2"
+        app:layout_constraintTop_toBottomOf="@+id/signUp2" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
