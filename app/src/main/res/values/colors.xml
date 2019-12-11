@@ -5,11 +5,13 @@
     <color name="colorAccent">#FFE7D0</color>
 
     <color name="black">#1B1B1B</color>
-    <color name="btnColor">#323232</color>
+    <color name="btnColor">#B58D28</color>
     <color name="open">#FFE7D0</color>
     <color name="orange">#FC6E20</color>
+    <color name="real_color">#B58D28</color>
     <color name="white">#FFFFFF</color>
     <color name="blue">#FF0099CC</color>
+    <color name="grey">#808080</color>
 
 
 </resources>

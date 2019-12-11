@@ -7,7 +7,7 @@
 
         <bitmap
             android:gravity="center"
-            android:src="@drawable/splash_screen_viparklogo"/>
+            android:src="@drawable/feel_the_privilege_splash"/>
     </item>
 
 </layer-list>

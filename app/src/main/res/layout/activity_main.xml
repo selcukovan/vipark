@@ -36,7 +36,7 @@
         android:background="@drawable/effect_button"
         android:onClick="login"
         android:text="sıgnın"
-        android:textColor="@color/orange"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pass" />
