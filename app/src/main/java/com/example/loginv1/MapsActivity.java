@@ -93,10 +93,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                         if (task.isSuccessful()) {
                             for (final QueryDocumentSnapshot document : task.getResult()) {
-                                mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(document.getData().get("x")
-                                        .toString()), Double.parseDouble(document.getData().get("y")
-                                        .toString()))).title(document.getData().get("name").toString())
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.bjk)));
+                                if(document.getData().get("price").toString().equals("10")){
+
+                                    mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(document.getData().get("x")
+
+                                            .toString()), Double.parseDouble(document.getData().get("y")
+
+                                            .toString()))).title(document.getData().get("name").toString())
+
+                                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.bjk)));}
+
+                                else{
+
+                                    mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(document.getData().get("x")
+
+                                            .toString()), Double.parseDouble(document.getData().get("y")
+
+                                            .toString()))).title(document.getData().get("name").toString())
+
+                                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.fsh)));}
+
+
+
 
 
 
@@ -128,12 +146,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                     public void onInfoWindowClick(Marker marker) {
 
                                         Toast.makeText(MapsActivity.this,"hellö",Toast.LENGTH_SHORT).show();
-                                        if(document.get("rezervation_able").equals(true)){
+                                        if(document.getData().get("rezervation_able").equals(true)){
                                             Toast.makeText(MapsActivity.this,"button enable",Toast.LENGTH_SHORT).show();
+                                            info_of_park_name.setText(marker.getTitle());
                                             check_rezervation.setEnabled(true);
                                         }else{
                                             Toast.makeText(MapsActivity.this,"button enable false",Toast.LENGTH_SHORT).show();
-                                            check_rezervation.setEnabled(false);
+                                            //check_rezervation.setEnabled(false);
                                         }
 
                                         info_window_park_markers.setVisibility(View.VISIBLE);
@@ -149,6 +168,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 });
 
     }
+
+    public void check_rezervation(View view){
+        Intent intent = new Intent(MapsActivity.this,rezervation_activity_with_wheel_time_picker.class);
+        startActivity(intent);
+    }
+
 
     /*ublic void download_file() throws IOException {
         final File localFile = File.createTempFile("images", "jpg");
