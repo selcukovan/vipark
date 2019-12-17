@@ -101,7 +101,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                                             .toString()))).title(document.getData().get("name").toString())
 
-                                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.bjk)));}
+                                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.bjk)).snippet(document.getData().get("rezervation_able").toString()));}
 
                                 else{
 
@@ -111,7 +111,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                                             .toString()))).title(document.getData().get("name").toString())
 
-                                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.fsh)));}
+                                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.fsh)).snippet(document.getData().get("rezervation_able").toString()));}
 
 
 
@@ -134,29 +134,46 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                         return true;
                                     }
                                 });*/
-                                mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                                    @Override
-                                    public void onMapClick(LatLng latLng) {
-                                        info_window_park_markers.setVisibility(View.INVISIBLE);
-                                    }
-                                });
 
-                                mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+
+                                /*mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                                     @Override
                                     public void onInfoWindowClick(Marker marker) {
 
                                         Toast.makeText(MapsActivity.this,"hellö",Toast.LENGTH_SHORT).show();
-                                        if(document.getData().get("rezervation_able").equals(true)){
+                                        if(document.getData().get("rezervation_able").toString().equals("1")){
                                             Toast.makeText(MapsActivity.this,"button enable",Toast.LENGTH_SHORT).show();
-                                            info_of_park_name.setText(marker.getTitle());
-                                            check_rezervation.setEnabled(true);
+                                            //info_of_park_name.setText(marker.getTitle()); info window artık yok. popUp var
+                                            //check_rezervation.setEnabled(true); info windowdaki button- artık gereksiz
                                         }else{
                                             Toast.makeText(MapsActivity.this,"button enable false",Toast.LENGTH_SHORT).show();
                                             //check_rezervation.setEnabled(false);
                                         }
 
-                                        info_window_park_markers.setVisibility(View.VISIBLE);
+                                        Intent intent = new Intent(MapsActivity.this,popUp.class);
+                                        startActivity(intent);
 
+                                    }
+                                });*/
+
+                                mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                                    @Override
+                                    public boolean onMarkerClick(Marker marker) {
+                                        if(marker.getSnippet().equals("1")||marker.getSnippet().equals("Rezervasyon yapılabilir")){
+                                            marker.setSnippet("Rezervasyon yapılabilir");
+                                            Toast.makeText(MapsActivity.this,"button enable",Toast.LENGTH_SHORT).show();
+
+                                        }else if(marker.getSnippet().equals("0")||marker.getSnippet().equals("Rezervasyon yapılamaz")){
+                                            marker.setSnippet("Rezervasyon yapılamaz");
+                                            Toast.makeText(MapsActivity.this,"sadasdsads",Toast.LENGTH_SHORT).show();
+
+                                        }
+                                        Intent intent = new Intent(MapsActivity.this,popUp.class);
+                                        String parkName = marker.getTitle();
+                                        intent.putExtra("park_name",parkName);
+                                        startActivity(intent);
+
+                                        return false;
                                     }
                                 });
                             }
