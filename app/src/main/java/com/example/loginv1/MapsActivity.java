@@ -2,10 +2,15 @@ package com.example.loginv1;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +18,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -48,19 +55,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     ConstraintLayout info_window_park_markers;
     TextView info_of_park_name;
     Button check_rezervation;
+    private static final String FINE_LOCATION= Manifest.permission.ACCESS_FINE_LOCATION;
+    private static final String COURSE_LOCATION=Manifest.permission.ACCESS_COARSE_LOCATION;
+    private Boolean mLocationPermissionGranted =false;
+    private static  final int LOCATION_PERMISSION_REQUEST_CODE =1234;
+    private FusedLocationProviderClient mFusedLocationProviderClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        getLocationPermission();
         mStorageRef = FirebaseStorage.getInstance().getReference();
         info_window_park_markers = (ConstraintLayout) findViewById(R.id.info_window_park_markers);
         info_of_park_name = (TextView) findViewById(R.id.info_of_park_name);
         check_rezervation = (Button) findViewById(R.id.check_rezervation);
+    }
+    @Override
+    protected void onResume() {
+        if(mLocationPermissionGranted){
+            getDeviceLocation();
+        }
+        super.onResume();
+    }
+    private void initMap(){
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(MapsActivity.this);
     }
 
     /**
@@ -78,10 +99,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         info_window_park_markers.setVisibility(View.INVISIBLE);
 
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
         Log.d("test", "asdasd");
         //(document.getData().get("logo_icon_id").toString())
 
@@ -177,6 +195,68 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     }
                 });
 
+        mMap.setMyLocationEnabled(true);
+
+    }
+
+    private void getLocationPermission(){
+        String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION};
+        if(ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                FINE_LOCATION)== PackageManager.PERMISSION_GRANTED){
+            if(ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                    COURSE_LOCATION)==PackageManager.PERMISSION_GRANTED){
+                mLocationPermissionGranted =true;
+                initMap();
+            }
+
+        }
+        else{
+            ActivityCompat.requestPermissions(this,permissions,LOCATION_PERMISSION_REQUEST_CODE);
+        }
+    }
+    private void getDeviceLocation(){
+
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        try{
+            Task location = mFusedLocationProviderClient.getLastLocation();
+            ((Task) location).addOnCompleteListener(new OnCompleteListener() {
+                @Override
+                public void onComplete(@NonNull Task task) {
+                    if(task.isSuccessful()){
+
+                        Location currentLocation = (Location) task.getResult();
+                        moveCamera(new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude()),15f);
+                    }else{
+
+                    }
+                }
+            });
+        }catch(SecurityException e){
+
+        }
+
+    }
+    private void moveCamera(LatLng latLng , float zoom){
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,zoom));
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        mLocationPermissionGranted=false;
+        switch (requestCode){
+            case LOCATION_PERMISSION_REQUEST_CODE:{
+                if(grantResults.length>0){
+                    for(int i =0;i<grantResults.length;i++){
+                        if(grantResults[i]!=PackageManager.PERMISSION_GRANTED){
+                            mLocationPermissionGranted=false;
+                            return;
+                        }
+                    }
+                    mLocationPermissionGranted=true;
+                    initMap();
+                }
+            }
+        }
     }
 
     public void check_rezervation(View view){
