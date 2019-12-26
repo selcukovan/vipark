@@ -34,6 +34,7 @@ public class popUp extends AppCompatActivity {
     String date_of_the_day;
     String current_hour_of_the_day;
     String parkName;
+    String total_saat;
 
     TextView park_name_text;
 
@@ -41,6 +42,9 @@ public class popUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pop_up);
+
+        Intent intent  = getIntent();
+        parkName = intent.getStringExtra("park_name");
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -60,8 +64,7 @@ public class popUp extends AppCompatActivity {
 
         getWindow().setAttributes(params);
 
-        Intent intent  = getIntent();
-        parkName = intent.getStringExtra("park_name");
+
 
 
 
@@ -145,6 +148,15 @@ public class popUp extends AppCompatActivity {
         wheelPicker.setSelectedItemPosition(1);
         wheelPicker4.setSelectedItemPosition(1);
 
+        wheelPicker4.setOnItemSelectedListener(new WheelPicker.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(WheelPicker picker, Object data, int position) {
+                total_saat = data.toString();
+                Intent intent = new Intent(popUp.this,PayActivity.class);
+                intent.putExtra("total_saat",total_saat);
+            }
+        });
+
 
         wheelPicker.setOnItemSelectedListener(new WheelPicker.OnItemSelectedListener() {
             @Override
@@ -190,6 +202,10 @@ public class popUp extends AppCompatActivity {
 
     }
     public void check_rezervation(View view){
+
+        Intent intent = new Intent(popUp.this,PayActivity.class);
+        intent.putExtra("park_name2", parkName);
+        startActivity(intent);
 
     }
 }

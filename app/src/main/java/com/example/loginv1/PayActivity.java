@@ -1,49 +1,74 @@
 package com.example.loginv1;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class PayActivity extends AppCompatActivity {
-    TextView textView1;
-    TextView textView2;
-    TextView textView3;
-    TextView textView4;
-    TextView textView5;
-    TextView textView6;
+    TextView price;
+    String parkName;
+    String park_price;
+    String total_saat;
+    int total_price;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay);
-        Intent i = getIntent();
-
-        String date = i.getStringExtra("date");
-        String hour = i.getStringExtra("hour_of_day");
-        String minute = i.getStringExtra("minute_of_day");
-
-        String exit_date = i.getStringExtra("exit_date");
-        String exit_hour = i.getStringExtra("exit_hour");
-        String exit_min = i.getStringExtra("exit_min");
+        Intent intent = getIntent();
 
 
-        textView1 = (TextView) findViewById(R.id.date);
-        textView2 = (TextView) findViewById(R.id.hour);
-        textView3 = (TextView) findViewById(R.id.minute);
-        textView4 = (TextView) findViewById(R.id.exit_date);
-        textView5 = (TextView) findViewById(R.id.exit_hour);
-        textView6 = (TextView) findViewById(R.id.exit_min);
+        parkName = intent.getStringExtra("park_name2");
+        total_saat = intent.getStringExtra("total_saat");
 
-        textView1.setText(date);
-        textView2.setText(hour);
-        textView3.setText(minute);
-        textView4.setText(exit_date);
-        textView5.setText(exit_hour);
-        textView6.setText(exit_min);
+
+
+
+        price = (TextView) findViewById(R.id.price);
+
+        CollectionReference collectionReference = db.collection("parks");
+
+        collectionReference.whereEqualTo("name",parkName)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for(DocumentSnapshot document: task.getResult()){
+                                park_price = document.getData().get("price").toString();
+
+
+                            }
+                        }else{
+
+
+
+
+                        }
+                    }
+                });
+
+
+
+        total_price = Integer.parseInt(park_price)*Integer.parseInt(total_saat);
+        price.setText(total_price);
+
+
+
     }
 }

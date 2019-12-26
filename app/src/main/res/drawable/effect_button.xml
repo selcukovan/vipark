@@ -4,7 +4,7 @@
 
     android:shape="rectangle">
     <solid android:color="@color/btnColor"></solid>
-    <corners android:radius="30dp"/>
+
 
     <item android:drawable="@drawable/rounded_button2" android:state_pressed="true"></item>
     <item android:drawable="@drawable/rounded_button"></item>

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -26,11 +27,11 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
-    EditText emailText;
-    EditText passText;
+
     GoogleSignInClient mGoogleSignInClient;
 
     SignInButton signInButton;
+    ImageView imageView;
 
 
 
@@ -42,9 +43,9 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
+        imageView = (ImageView) findViewById(R.id.imageView2);
 
-        emailText = (EditText) findViewById(R.id.email);
-        passText = (EditText) findViewById(R.id.pass);
+
         // Check if user is signed in (non-null) and update UI accordingly.
 
         signInButton = (SignInButton) findViewById(R.id.sign_in_button);
@@ -67,9 +68,7 @@ public class MainActivity extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this,gso);
 
     }
-    private void login() {
 
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -119,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void login(View view){
+    /*public void login(View view){
 
         mAuth.signInWithEmailAndPassword(emailText.getText().toString(), passText.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -141,6 +140,12 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
+
+    }*/
+
+    public void ok_button(View view){
+        Intent intent = new Intent(MainActivity.this,phoneSignInActivity.class);
+        startActivity(intent);
 
     }
 

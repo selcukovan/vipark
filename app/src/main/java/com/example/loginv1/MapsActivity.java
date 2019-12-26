@@ -113,13 +113,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                                             .icon(BitmapDescriptorFactory.fromResource(R.drawable.fsh)).snippet(document.getData().get("rezervation_able").toString()));}
 
-
-
-
-
-
-
-
                                 /*info_of_park_name.setText(document.get("name").toString());
                                 mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                                     @Override

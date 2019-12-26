@@ -11,9 +11,11 @@
     <color name="real_color">#B58D28</color>
     <color name="white">#FFFFFF</color>
     <color name="blue">#FF0099CC</color>
-    <color name="grey">#808080</color>
+    <color name="grey">#707070</color>
     <color name="startcolor">#808080</color>
     <color name="endcolor">#808090</color>
+    <color name="orangev1">#FF5121</color>
+    <color name="colors_for_phone">#0A1F44</color>
 
 
 

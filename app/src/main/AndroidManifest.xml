@@ -15,10 +15,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-        <activity android:name=".popUp"
-            android:theme="@style/AppTheme.Popme">
+        <activity android:name=".Verify_Phone_Reg"
+            android:windowSoftInputMode="stateVisible|adjustPan"></activity>
+        <activity android:name=".phoneSignInActivity"
+            android:windowSoftInputMode="stateVisible|adjustPan">
 
         </activity>
+
+        <activity
+            android:name=".popUp"
+            android:theme="@style/AppTheme.Popme" />
         <activity android:name=".rezervation_activity_with_wheel_time_picker" />
         <activity android:name=".PayActivity" />
         <activity android:name=".ReservationActivity" />
@@ -27,7 +33,7 @@
             android:theme="@style/splashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -42,6 +48,9 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
         <activity
             android:name=".MapsActivity"
